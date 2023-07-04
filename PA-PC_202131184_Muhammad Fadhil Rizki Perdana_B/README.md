@@ -160,13 +160,13 @@ Segmen ini berfungsi untuk menggambar garis-garis yang telah terdeteksi pada cit
 
 ## Hasil Output dan Detail gambar
 
-+ **Output citra**
++ **Output citra** <br />
 ![image](img/output.jpg)
 
-+ **Citra Asli**
++ **Citra Asli** <br />
 ![image](img/marka-jalan.jpg)
 
-+ **Detail Citra**
++ **Detail Citra** <br />
 ![image](img/detail.jpg)
 
 
