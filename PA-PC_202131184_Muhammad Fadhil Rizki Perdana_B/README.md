@@ -160,7 +160,7 @@ Segmen ini berfungsi untuk menggambar garis-garis yang telah terdeteksi pada cit
 
 ## Hasil Output dan Detail gambar
 
-+ **Output citra** <br />
++ **Output citra dari program** <br />
 ![image](img/output.jpg)
 
 + **Citra Asli** <br />
