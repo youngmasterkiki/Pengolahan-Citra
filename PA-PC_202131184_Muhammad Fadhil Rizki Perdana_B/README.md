@@ -47,18 +47,25 @@ Dalam deteksi marka jalan, pengolahan citra memainkan peran penting dalam mempro
 
 ## Tahapan Penyelesaian Program
 
-Proses deteksi marka jalan menggunakan teknik pengolahan citra untuk mengidentifikasi dan membedakan marka jalan dari latar belakang citra. Beberapa langkah yang umum dilakukan dalam deteksi marka jalan meliputi:
+Proses deteksi marka jalan menggunakan teknik pengolahan citra untuk mengidentifikasi dan membedakan marka jalan dari latar belakang citra. Berikut adalah tahapan penyelesaian dari program kali ini :
 
-- Pre-processing: Citra awal memerlukan tahapan pre-processing untuk meningkatkan kualitas citra, menghilangkan noise, dan meningkatkan kontras antara marka jalan dan latar belakang.
+- Mengimpor library: Kode dimulai dengan mengimpor library yang diperlukan, yaitu `cv2` (OpenCV), `numpy` (untuk operasi numerik), dan `matplotlib.pyplot` (untuk menampilkan gambar).
 
-- Segmentation: Langkah ini melibatkan pemisahan marka jalan dari latar belakang citra. Metode segmentasi yang umum digunakan meliputi segmentasi berdasarkan warna, intensitas, atau tekstur marka jalan.
+- Membaca gambar: Gambar dengan nama "marka-jalan.jpg" dibaca menggunakan fungsi `cv.imread()` dan disimpan dalam variabel `img`. Kemudian, gambar tersebut ditampilkan menggunakan `cv.imshow()`, `cv.waitKey(0)`, dan `cv.destroyAllWindows()`.
 
-- Feature Detection: Setelah Segmentation, fitur-fitur yang relevan diambil dari marka jalan yang terdeteksi. Fitur-fitur ini dapat meliputi panjang, lebar, bentuk, atau pola marka jalan.
+- Konversi gambar ke skala keabuan: Gambar asli dikonversi menjadi skala keabuan menggunakan `cv.cvtColor()` dengan parameter `cv.COLOR_BGR2GRAY`. Hasilnya disimpan dalam variabel `gray`. Kemudian, gambar skala keabuan ditampilkan menggunakan `plt.imshow()` dan `plt.show()`.
 
-- Clasification: Fitur-fitur yang telah diambil kemudian digunakan untuk mengklasifikasikan marka jalan menjadi kategori yang sesuai, misalnya marka jalan lurus, marka jalan putus-putus, atau marka jalan berbelok.
+- Penerapan Gaussian blur pada gambar skala keabuan: Gambar skala keabuan diubah dengan menerapkan Gaussian blur menggunakan `cv.GaussianBlur()`. Parameter `(5, 5)` menentukan ukuran kernel, dan `0` adalah sigma (standar deviasi) dalam rumus Gaussian. Hasil blur disimpan dalam variabel `blur`. Kemudian, gambar blur ditampilkan menggunakan `plt.imshow()` dan `plt.show()`.
 
-- Post-processing: Setelah tahap klasifikasi, langkah terakhir adalah post-processing. Ini melibatkan pengolahan lanjutan pada hasil deteksi untuk meningkatkan akurasi atau memperbaiki deteksi yang tidak akurat. Misalnya, penggabungan atau penyaringan spasial dapat digunakan untuk menghilangkan deteksi ganda atau mengisi celah yang mungkin terjadi dalam marka jalan.## Penjelasan Source Code
-Untuk penjelasan source code saya akan membagi ke beberapa segmen agar dapat lebih mudah dipahami. Beberapa line dari source code digunakan berulang jadi dalam hal itu source code yang sama hanya akan dijelaskan satu kali
+- Deteksi tepi menggunakan metode Canny: Menggunakan `cv.Canny()`, tepi gambar skala keabuan dihitung dengan menggunakan ambang batas bawah 150 dan batas atas 300. Hasilnya disimpan dalam variabel `edges`. Gambar tepi ditampilkan menggunakan `plt.imshow()` dan `plt.show()`.
+
+- Deteksi garis menggunakan Transformasi Hough: Metode `cv.HoughLinesP()` digunakan untuk mendeteksi garis-garis dalam gambar tepi. Parameter-parameter yang diberikan adalah: gambar tepi, resolusi jarak piksel 1, resolusi sudut piksel dalam radian `np.pi/180`, ambang batas untuk deteksi garis 100, panjang garis minimum 100 piksel, dan celah maksimum antara dua piksel untuk dianggap sebagai garis 10 piksel. Hasil deteksi garis disimpan dalam variabel `lines`.
+
+- Menggambar garis pada gambar asli: Salinan gambar asli disimpan dalam variabel `output_image`. Loop dilakukan pada setiap garis yang terdeteksi, dan garis-garis tersebut digambar pada `output_image` menggunakan `cv.line()` dengan warna (0, 255, 20) dan ketebalan garis 2 piksel.
+
+- Menampilkan gambar hasil: Gambar hasil dengan garis-garis yang telah digambar ditampilkan menggunakan `plt.imshow()` setelah dikonversi dari BGR ke RGB menggunakan `cv.cvtColor()`. Label gambar ditetapkan sebagai "Output Image" dan ditampilkan menggunakan `plt.title()`. Akhirnya, gambar ditampilkan dengan `plt.show()`.
+  
+---
 
 #### Importing Library
 
@@ -169,4 +176,9 @@ Segmen ini berfungsi untuk menggambar garis-garis yang telah terdeteksi pada cit
 + **Detail Citra** <br />
 ![image](img/detail.jpg)
 
+---
 
+## Referensi Jurnal
+- https://www.researchgate.net/publication/333828627_AUTOMATIC_ROAD_MARKINGS_EXTRACTION_CLASSIFICATION_AND_VECTORIZATION_FROM_MOBILE_LASER_SCANNING_DATA
+
+- https://www.researchgate.net/publication/312286941_Robust_Road_Marking_Detection_and_Recognition_Using_Density-Based_Grouping_and_Machine_Learning_Techniques
